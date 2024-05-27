@@ -1,30 +1,31 @@
 #include <FreeRTOS.h>
 #include <task.h>
-#include <stdio.h> // Include for serial I/O
+#include <stdio.h>
 #include "pico/stdlib.h"
 
-enum LED_STATUS { OFF, ON };
 
-void led_task(void *pvParameters){  
-    const uint LED_PIN = PICO_DEFAULT_LED_PIN;
-
-    gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
-    
+void task1(void *pvParameters) {   
     while (true) {
-        gpio_put(LED_PIN, ON);
-        vTaskDelay(100);
-        gpio_put(LED_PIN, OFF);
-        vTaskDelay(100);
+        printf("Task 1 is currently running\n");
+        for(int i = 0; i<20000000; i++){};
+        // vTaskDelay(100);
+    }
+}
+
+void task2(void *pvParameters) {   
+    while (true) {
+        printf("Task 2 is currently running\n");
+        for(int i = 0; i<20000000; i++){};
+        // vTaskDelay(100);
     }
 }
 
 int main() {
-    stdio_init_all(); // Include for serial I/O
+    stdio_init_all();
 
-    // Create & start the scheduler for both the led_task & usb_task programs
-    xTaskCreate(led_task, "LED_Task", 256, NULL, 1, NULL);
+    xTaskCreate(task1, "Task 1", 256, NULL, 1, NULL);
+    xTaskCreate(task2, "Task 2", 256, NULL, 1, NULL);
     vTaskStartScheduler();
 
-    while(true){};
+    while(1){};
 }
