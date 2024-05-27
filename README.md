@@ -1,4 +1,4 @@
-# FreeRTOS UART Communication on Raspberry Pi Pico
+# RP2040 FreeRTOS UART Communication
 
 ## Project Description
 
